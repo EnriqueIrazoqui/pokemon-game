@@ -1,4 +1,19 @@
 html, body {
     background-color: #f1f1f1;
     margin: 0px;
+    font-family: sans-serif;
 }
+
+h1{
+    padding-top: 20px;
+    color: yellow;
+    border-color: black;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+header{
+    background:
+    linear-gradient(red 0 80px, black 81px 96px, white 97px 100%);
+    
+}
+

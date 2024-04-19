@@ -1,16 +1,29 @@
 <template>
 
-    <h1 v-if="!pokemon" >Cargando....</h1>
+    <header >
+        <h1 v-if="!pokemon" >Cargando....</h1>
 
     <div v-else>
-        <h1>¿Quien es este pokemon?</h1>
+        <h1>¿Quien es ese pokemon?</h1>
         <!--IMG-->
         <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
 
         <!--Opciones-->
-        <PokemonOptions :pokemons="pokemonArr"/>
+        <PokemonOptions :pokemons="pokemonArr"
+                @selectionPokemon="checkAnswer"
+        />
+
+        <template v-if="showAnswer">
+        <h2 class="fade-in">{{ message }}</h2>
+        <button @click="newGame">
+            Nuevo juego
+        </button>
+        </template>
 
     </div>
+        
+    </header>
+    
   
 </template>
 
@@ -28,7 +41,9 @@ export default {
         return{
             pokemonArr: [],
             pokemon: null,
-            showPokemon: false
+            showPokemon: false,
+            showAnswer: false,
+            message: ""
         }
     },
 
@@ -37,7 +52,25 @@ export default {
             this.pokemonArr = await getPokemonOptions();
 
             const rdnInt =  Math.floor(Math.random()* 4);
-            this.pokemon = this.pokemonArr[rdnInt]
+            this.pokemon = this.pokemonArr[rdnInt];
+        },
+        checkAnswer(pokemonId){
+            this.showPokemon =true;
+            this.showAnswer = true;
+
+            if(pokemonId === this.pokemon.id){
+                this.message = `Correcto, es ${this.pokemon.name}`
+            }else{
+                this.message = `Mmmmm, era ${this.pokemon.name}`
+            }
+            
+        },
+        newGame(){
+            this.showPokemon = false;
+            this.showAnswer = false;
+            this.pokemonArr = [];
+            this.pokemon = null;
+            this.mixPokemonArray();
         }
     },
     mounted(){
@@ -45,3 +78,21 @@ export default {
     }
 }
 </script>
+<style scoped>
+/* Pokemon Options */
+button{
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 250px;
+  color: black;
+}
+
+button:hover {
+  background-color: rgb(255,0,0);
+}
+
+
+</style>
