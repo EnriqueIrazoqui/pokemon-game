@@ -1,7 +1,7 @@
-import Axios from "axios";
+import axios from "axios";
 
 
-const pokemonApi = Axios.create({
+const pokemonApi = axios.create({
     baseURL: "https://pokeapi.co/api/v2/pokemon"
 })
 
